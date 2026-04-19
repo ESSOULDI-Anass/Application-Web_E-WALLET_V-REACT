@@ -1,10 +1,19 @@
 import Header from "./headers";
 import Footer from "./footer";
+import { useState } from "react";
+import DashTras from "../gestion-dash/dash-tras";
 
-function Dash() {
+function Dash({authUser}) {
+
+    const [transferePopup, settransferePopup] = useState(false);
+
     return (
         <>
+        
             <Header />
+            {!authUser ? (
+                    <div>Loading...</div>
+                ) : (
                 <main className="dashboard-main">
                     <div className="dashboard-container">
                     
@@ -50,8 +59,8 @@ function Dash() {
                         
                         <section id="overview" className="dashboard-section active">
                         <div className="section-header">
-                            <h2>Bonjour, <span id="greetingName">?</span> !</h2>
-                            <p className="date-display" id="currentDate"></p>
+                            <h2>Bonjour, <span id="greetingName">{authUser.name}</span> !</h2>
+                            <p className="date-display" id="currentDate">{new Date().toLocaleDateString("fr-FR")}</p>
                         </div>
 
                         <div className="summary-cards">
@@ -61,7 +70,7 @@ function Dash() {
                             </div>
                             <div className="card-details">
                                 <span className="card-label">Solde disponible</span>
-                                <span className="card-value" id="availableBalance">?</span>
+                                <span className="card-value" id="availableBalance">{authUser.wallet.balance} {authUser.wallet.currency}</span>
                             </div>
                             </div>
 
@@ -71,7 +80,10 @@ function Dash() {
                             </div>
                             <div className="card-details">
                                 <span className="card-label">Revenus</span>
-                                <span className="card-value" id="monthlyIncome">?</span>
+                                <span className="card-value" id="monthlyIncome">{authUser.wallet.transactions
+                                    .filter((t) => t.type === "credit")
+                                    .reduce((total, t) => total + t.amount, 0)}
+                                </span>
                             </div>
                             </div>
 
@@ -81,7 +93,10 @@ function Dash() {
                             </div>
                             <div className="card-details">
                                 <span className="card-label">Dépenses</span>
-                                <span className="card-value" id="monthlyExpenses">?</span>
+                                <span className="card-value" id="monthlyExpenses">{authUser.wallet.transactions
+                                    .filter((t) => t.type === "debit")
+                                    .reduce((total, t) => total + t.amount, 0)}
+                                </span>
                             </div>
                             </div>
 
@@ -91,7 +106,7 @@ function Dash() {
                             </div>
                             <div className="card-details">
                                 <span className="card-label">Cartes actives</span>
-                                <span className="card-value" id="activeCards">?</span>
+                                <span className="card-value" id="activeCards">{authUser.wallet.cards.length}</span>
                             </div>
                             </div>
                         </div>
@@ -99,7 +114,14 @@ function Dash() {
                         <div className="quick-actions">
                             <h3>Actions rapides</h3>
                             <div className="action-buttons">
-                            <button className="action-btn" id="quickTransfer" type="button">
+                            <button className="action-btn" id="quickTransfer" 
+                            
+                            onClick={() => {
+                                console.log("CLICK");
+                                settransferePopup(true);
+                                console.log(transferePopup);
+                              }}
+                            type="button">
                                 <i className="fas fa-paper-plane"></i>
                                 <span>Transférer</span>
                             </button>
@@ -154,10 +176,11 @@ function Dash() {
                         </div>
                         </section>
                     </div>
-                    </div>
+                    </div> 
 
+                    
                     {/*<!-- Popup transfert -->*/}
-                    <div className="popup-overlay" id="transferPopup">
+                    {/* <div className="popup-overlay" id="transferPopup">
                     <div className="popup-content">
                         <div className="popup-header">
                         <h2>Effectuer un transfert</h2>
@@ -219,7 +242,13 @@ function Dash() {
                         </form>
                         </div>
                     </div>
-                    </div>
+                    </div> */}
+                    {transferePopup && 
+                        (<DashTras  
+                        authUser={authUser}
+                        settransferePopup={settransferePopup}/>) }
+
+
                     <div className="popup-overlay" id="topupPopup">
                     <div className="popup-content">
                         <div className="popup-header">
@@ -231,7 +260,7 @@ function Dash() {
                         <div className="popup-body">
                         <form id="topupForm" className="transfer-form">
                             <div className="form-group">
-                            <label for="topupCard">
+                            <label htmlFor="topupCard">
                                 <i className="fas fa-credit-card"></i> Carte source
                             </label>
                             <select id="topupCard" name="topupCard" required>
@@ -259,7 +288,10 @@ function Dash() {
                     </div>
 
                 </main>
+                 )}
             <Footer />
+
+       
         </>
     );
 }       
