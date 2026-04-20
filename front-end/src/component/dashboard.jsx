@@ -2,10 +2,12 @@ import Header from "./headers";
 import Footer from "./footer";
 import { useState } from "react";
 import DashTras from "../gestion-dash/dash-tras";
+import DashRech from "../gestion-dash/dash-rech";
 
 function Dash({authUser}) {
 
     const [transferePopup, settransferePopup] = useState(false);
+    const [topupPopup, settopupPopup] = useState(false);
 
     return (
         <>
@@ -117,15 +119,19 @@ function Dash({authUser}) {
                             <button type="button" className="action-btn" id="quickTransfer" 
                             
                             onClick={() => {
-                                console.log("CLICK");
+                               // console.log("CLICK");
                                 settransferePopup(true);
-                                console.log(transferePopup);
+                                //console.log(transferePopup);
                               }}
                             >
                                 <i className="fas fa-paper-plane"></i>
                                 <span>Transférer</span>
                             </button>
-                            <button className="action-btn" id="quickTopup" type="button">
+                            <button className="action-btn" id="quickTopup" type="button"
+                            
+                            onClick={() => settopupPopup(true)}
+                            
+                            >
                                 <i className="fas fa-plus-circle"></i>
                                 <span>Recharger</span>
                             </button>
@@ -249,7 +255,7 @@ function Dash({authUser}) {
                         settransferePopup={settransferePopup}/>) }
 
 
-                   {/*  <div className="popup-overlay" id="topupPopup">
+                     {/* <div className="popup-overlay" id="topupPopup">
                     <div className="popup-content">
                         <div className="popup-header">
                         <h2>Recharger mon portefeuille</h2>
@@ -285,7 +291,11 @@ function Dash({authUser}) {
                         </form>
                         </div>
                     </div>
-                    </div> */}
+                    </div> 
+                        */}
+
+
+                        {topupPopup &&(<DashRech authUser={authUser} settopupPopup={settopupPopup}/>)}
 
                 </main>
                  )}
