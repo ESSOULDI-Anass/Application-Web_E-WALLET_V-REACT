@@ -114,14 +114,14 @@ function Dash({authUser}) {
                         <div className="quick-actions">
                             <h3>Actions rapides</h3>
                             <div className="action-buttons">
-                            <button className="action-btn" id="quickTransfer" 
+                            <button type="button" className="action-btn" id="quickTransfer" 
                             
                             onClick={() => {
                                 console.log("CLICK");
                                 settransferePopup(true);
                                 console.log(transferePopup);
                               }}
-                            type="button">
+                            >
                                 <i className="fas fa-paper-plane"></i>
                                 <span>Transférer</span>
                             </button>
@@ -249,7 +249,7 @@ function Dash({authUser}) {
                         settransferePopup={settransferePopup}/>) }
 
 
-                    <div className="popup-overlay" id="topupPopup">
+                   {/*  <div className="popup-overlay" id="topupPopup">
                     <div className="popup-content">
                         <div className="popup-header">
                         <h2>Recharger mon portefeuille</h2>
@@ -268,7 +268,7 @@ function Dash({authUser}) {
                             </select>
                             </div>
                             <div className="form-group">
-                            <label for="topupAmount">Montant</label>
+                            <label htmlFor="topupAmount">Montant</label>
                             <div className="amount-input">
                                 <input type="number" id="topupAmount" name="topupAmount"
                                     min="10" step="0.01" placeholder="0.00" required/>
@@ -285,7 +285,7 @@ function Dash({authUser}) {
                         </form>
                         </div>
                     </div>
-                    </div>
+                    </div> */}
 
                 </main>
                  )}

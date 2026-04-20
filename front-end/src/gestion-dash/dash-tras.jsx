@@ -25,7 +25,7 @@ export default function DashTras({authUser,settransferePopup}) {
       function checkSolde(expediteur, amount) {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
-            if (expediteur.wallet.balance > amount) {
+            if (expediteur.wallet.balance > Number(amount)) {
               resolve("Solde suffisant"); 
             } else {
               reject("Solde insuffisant"); 
@@ -137,7 +137,7 @@ function handleTransfer(e) {
                     </div>
 
                     <div className="form-group">
-                    <label for="sourceCard">
+                    <label htmlFor="sourceCard">
                         <i className="fas fa-credit-card"></i> Depuis ma carte
                     </label>
                     <select id="sourceCard" name="sourceCard" 
@@ -159,7 +159,7 @@ function handleTransfer(e) {
                     </div>
 
                     <div className="form-group">
-                    <label for="amount">
+                    <label htmlFor="amount">
                         <i></i> Montant
                     </label>
                     <div className="amount-input">
@@ -175,12 +175,12 @@ function handleTransfer(e) {
                     <div className="form-options">
                     <div className="checkbox-group">
                         <input type="checkbox" id="saveBeneficiary" name="saveBeneficiary"/>
-                        <label for="saveBeneficiary">Enregistrer ce bénéficiaire</label>
+                        <label htmlFor="saveBeneficiary">Enregistrer ce bénéficiaire</label>
                     </div>
                     
                     <div className="checkbox-group">
                         <input type="checkbox" id="instantTransfer" name="instantTransfer"/>
-                        <label for="instantTransfer">Transfert instantané <span className="fee-badge">+13.4 MAD</span></label>
+                        <label htmlFor="instantTransfer">Transfert instantané <span className="fee-badge">+13.4 MAD</span></label>
                     </div>
                     </div>
                     
